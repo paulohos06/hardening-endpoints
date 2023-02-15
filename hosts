@@ -1,0 +1,15 @@
+[ubuntu]
+pa-ubuntu
+
+[ubuntu:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[centos]
+pa-centos
+
+[centos:vars]
+ansible_python_interpreter=/usr/bin/python
+
+[linux]
+pa-ubuntu
+pa-centos
