@@ -1,26 +1,24 @@
-# Every YAML file should start with three dashes
 ---
+# osquery ubuntu setup file
 
-- name: Ubuntu - adicionando a chave do repositorio
+- name: Add repository key
   become: true
   apt_key:
     keyserver: "keyserver.ubuntu.com"
     id: "1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B"
     state: present
 
-- name: Ubuntu - adicionando o repositorio
+- name: Add server repository
   become: true
   ansible.builtin.apt_repository:
     repo: "deb [arch=amd64] https://pkg.osquery.io/deb deb main"
     state: present
 
-- name: Ubuntu - instalando o OSQuery
+- name: Install osquery
   become: true
   ansible.builtin.apt:
-    name: "osquery"
+    name: "{{ osquery_name }}"
     state: present
     update_cache: yes
+  notify: Restart osquery
 
- 
-# Every YAML file should end with three dots
-...

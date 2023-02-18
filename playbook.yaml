@@ -1,0 +1,8 @@
+---
+# playbooks file
+- hosts: linux
+  become: yes
+  roles:
+    - osquery-role
+
+...

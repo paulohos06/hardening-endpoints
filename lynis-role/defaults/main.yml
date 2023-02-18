@@ -1,0 +1,17 @@
+---
+# defaults file for lynis-role
+
+# Where to install lynis
+lynis_destination: "/opt/lynis"
+
+# The version to install
+lynis_version: "3.0.8"
+
+# Where to save the output of a report.
+lynis_output: "{{ lynis_destination }}/reports/{{ ansible_date_time.iso8601 }}-audit_system.txt"
+
+# Run lynis on execution of the playbook?
+lynis_run_now: yes
+
+# Schedule a repetetive job?
+lynis_cronjob: yes

@@ -1,0 +1,14 @@
+---
+# vars file for lynis-role
+_lynis_requirements:
+  default:
+    - bash
+  RedHat:
+    - bash
+    - findutils
+
+lynis_requirements: "{{ _lynis_requirements[ansible_os_family] | default(_lynis_requirements['default']) }}"
+
+lynis_repository: "https://github.com/CISOfy/lynis.git"
+
+...

@@ -1,0 +1,9 @@
+---
+# defaults file for osquery-role
+
+osquery_name: "osquery"
+osquery_destination: "/etc/osquery"
+osquery_daemon: "osqueryd"
+osquery_version: "latest"
+osquery_enable_service: true
+osquery_output: "/var/log/osquery"

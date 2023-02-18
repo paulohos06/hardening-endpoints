@@ -1,0 +1,26 @@
+---
+# tasks file for osquery-role
+
+- name: Install osquery on ubuntu
+  ansible.builtin.include_tasks: setup-ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install osquery on centos
+  ansible.builtin.include_tasks: setup-centos.yml
+  when: ansible_distribution == "CentOS"
+
+- name: Copy configuration file
+  ansible.builtin.template:
+    src: "osquery.conf.json"
+    dest: "{{ osquery_destination }}/osquery.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart osquery
+
+- name: Daemon osquerystarts on boot
+  become: true
+  ansible.builtin.service:
+    name: "{{ osquery_daemon }}"
+    state: started
+    enabled: yes

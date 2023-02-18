@@ -1,6 +1,7 @@
-# Every YAML file should start with three dashes
 ---
-- name: CentOS - adicionando o repositorio
+# osquery centos setup file
+
+- name: Add repository key
   become: true
   ansible.builtin.yum_repository:
     name: 'osquery-s3-rpm'
@@ -11,12 +12,9 @@
     repo_gpgcheck: no
     state: present
 
-- name: CentoOS - instalando o OSQuery
+- name: Install osquery on centos
   become: true
   ansible.builtin.yum:
     name: "osquery"
     state: present
     update_cache: yes
- 
-# Every YAML file should end with three dots
-...
