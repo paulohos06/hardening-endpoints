@@ -1,7 +1,7 @@
 ---
 # handlers file for osquery-role
 
-- name: Restart osquery
+- name: restart osquery
   ansible.builtin.service:
     name: "{{ osquery_daemon }}"
     state: restarted

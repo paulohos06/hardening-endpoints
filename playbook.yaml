@@ -1,9 +1,33 @@
 ---
 # playbooks file
-- hosts: linux
+
+- name: "Lynis - Security Compliance v1.0"
+  hosts: linux
   become: yes
+
+  pre_tasks:
+    - debug:
+        msg: "Iniciando as configurações"
+  
   roles:
     - lynis-role
+
+  post_tasks:
+    - debug:
+        msg: "Configurações finalizadas"
+
+- name: "OSQuery - Security Compliance v1.0"
+  hosts: linux
+  become: yes
+
+  pre_tasks:
+    - debug:
+        msg: "Iniciando as configurações"
+  
+  roles:
     - osquery-role
 
+  post_tasks:
+    - debug:
+        msg: "Configurações finalizadas"
 ...

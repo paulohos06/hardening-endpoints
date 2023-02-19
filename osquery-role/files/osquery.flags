@@ -1,0 +1,12 @@
+--audit_allow_config=true
+--audit_allow_sockets
+--audit_persist=true
+--disable_audit=false
+--events_expiry=1
+--events_max=50000
+--logger_plugin=filesystem,syslog
+--logger_event_type=false
+--logger_min_stderr=3
+--logger_rotate_size=26214400
+--enable_syslog=true
+--watchdog_memory_limit=350

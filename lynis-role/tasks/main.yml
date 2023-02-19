@@ -1,4 +1,5 @@
 ---
+
 # tasks file for lynis-role
 - name: Install requirements
   ansible.builtin.package:
@@ -30,5 +31,11 @@
     user: root
   when:
     - lynis_cronjob
+
+- name: Copy audit results from remote hosts
+  ansible.builtin.fetch:
+    src: "{{ lynis_output }}"
+    dest: "~/ansible/remote_output/{{ inventory_hostname }}/"
+    flat: yes
 
 ...

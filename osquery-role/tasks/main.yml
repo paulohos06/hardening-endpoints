@@ -16,11 +16,30 @@
     owner: root
     group: root
     mode: 0644
-  notify: Restart osquery
+  notify: restart osquery
 
-- name: Daemon osquerystarts on boot
+- name: Copy query packs
+  ansible.builtin.copy:
+    src: packs/
+    dest: "{{ osquery_destination }}/packs"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart osquery
+
+- name: Copy query flags
+  ansible.builtin.copy:
+    src: "osquery.flags"
+    dest: "{{ osquery_destination }}/osquery.flags"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart osquery
+
+- name: Daemon osquery starts on boot
   become: true
   ansible.builtin.service:
     name: "{{ osquery_daemon }}"
     state: started
     enabled: yes
+

@@ -1,18 +1,16 @@
 {
   "options": {
     "host_identifier": "{{ host_identifier }}",
-    "schedule_splay_percent": "{{ schedule_splay_percent }}",
-    "enable_syslog": "true"
+    "schedule_splay_percent": "{{ schedule_splay_percent }}"
   },
   "schedule": {
     "system_info": {
       "query": "SELECT hostname, cpu_brand, physical_memory FROM system_info;",
       "interval": 60
     },
-    "file_events": {
-      "query": "select * from file_events;",
-      "removed": false,
-      "interval": 60
+    "users": {
+      "query": "SELECT * FROM users;",
+      "interval": "60"
     }
   },
   "decorators": {
@@ -28,5 +26,8 @@
         "SELECT total_seconds AS uptime FROM uptime;"
       ]
     }
+  },
+  "packs": {
+    "it-compliance": "/etc/osquery/packs/it-compliance.conf"
   }
 }
