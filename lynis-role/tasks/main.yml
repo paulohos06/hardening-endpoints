@@ -4,12 +4,16 @@
 - name: Install requirements
   ansible.builtin.package:
     name: "{{ lynis_requirements }}"
+  tags:
+    - configuration
 
 - name: Install lynis
   ansible.builtin.git:
     repo: "{{ lynis_repository }}"
     dest: "{{ lynis_destination }}"
     version: "{{ lynis_version }}"
+  tags:
+    - configuration
 
 - name: Audit system
   ansible.builtin.shell:
@@ -18,24 +22,29 @@
     chdir: "{{ lynis_destination }}"
     executable: /bin/bash
   register: lynix_audit_system
+  tags:
+    - runsc
   when:
     - lynis_run_now
 
 - name: Schedule a run of lynis
   ansible.builtin.cron:
     name: run lynis
-    minute: "23"
-    hour: "4"
+    minute: "*/30"
     job: "{{ lynis_destination }}/lynis --cronjob audit system | tee -a {{ lynis_output }}"
     cron_file: lynis
     user: root
   when:
     - lynis_cronjob
+  tags:
+    - configuration
 
 - name: Copy audit results from remote hosts
   ansible.builtin.fetch:
     src: "{{ lynis_output }}"
     dest: "~/ansible/remote_output/{{ inventory_hostname }}/"
     flat: yes
+  tags:
+    - configuration
 
 ...

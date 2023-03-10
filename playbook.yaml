@@ -1,33 +1,12 @@
 ---
 # playbooks file
+# ansible-playbook example.yml --tags "configuration,runsc"
 
-- name: "Lynis - Security Compliance v1.0"
+- name: "BE S.A - Security Compliance v1.0"
   hosts: linux
   become: yes
 
-  pre_tasks:
-    - debug:
-        msg: "Iniciando as configurações"
-  
   roles:
     - lynis-role
-
-  post_tasks:
-    - debug:
-        msg: "Configurações finalizadas"
-
-- name: "OSQuery - Security Compliance v1.0"
-  hosts: linux
-  become: yes
-
-  pre_tasks:
-    - debug:
-        msg: "Iniciando as configurações"
-  
-  roles:
     - osquery-role
-
-  post_tasks:
-    - debug:
-        msg: "Configurações finalizadas"
 ...

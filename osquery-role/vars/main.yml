@@ -1,5 +1,0 @@
----
-# vars file for osquery-role
-
-host_identifier: hostname
-schedule_splay_percent: 10

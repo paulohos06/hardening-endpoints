@@ -2,20 +2,26 @@
 # tasks file for osquery-role
 
 - name: Install osquery on ubuntu
-  ansible.builtin.include_tasks: setup-ubuntu.yml
+  ansible.builtin.include_tasks: setup-deb.yml
   when: ansible_distribution == "Ubuntu"
+  tags:
+    - configuration
 
 - name: Install osquery on centos
-  ansible.builtin.include_tasks: setup-centos.yml
+  ansible.builtin.include_tasks: setup-rpm.yml
   when: ansible_distribution == "CentOS"
+  tags:
+    - configuration
 
 - name: Copy configuration file
-  ansible.builtin.template:
-    src: "osquery.conf.json"
+  ansible.builtin.copy:
+    src: "osquery.conf"
     dest: "{{ osquery_destination }}/osquery.conf"
     owner: root
     group: root
     mode: 0644
+  tags:
+    - configuration
   notify: restart osquery
 
 - name: Copy query packs
@@ -25,6 +31,8 @@
     owner: root
     group: root
     mode: 0644
+  tags:
+    - configuration
   notify: restart osquery
 
 - name: Copy query flags
@@ -34,6 +42,8 @@
     owner: root
     group: root
     mode: 0644
+  tags:
+    - configuration
   notify: restart osquery
 
 - name: Daemon osquery starts on boot
@@ -42,4 +52,6 @@
     name: "{{ osquery_daemon }}"
     state: started
     enabled: yes
+  tags:
+    - configuration
 
